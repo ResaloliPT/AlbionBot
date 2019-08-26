@@ -1,0 +1,18 @@
+{
+    "defaultSeverity": "error",
+    "extends": [
+        "tslint:recommended"
+    ],
+    "jsRules": {},
+    "rules": {
+        "await-promise": true,
+        "curly": [true, "as-needed"],
+        "no-async-without-await": true,
+        "no-floating-promises": true,
+        "no-implicit-dependencies": true,
+        "no-invalid-template-strings": true,
+        "no-invalid-this": true,
+        "no-misused-new": true
+    },
+    "rulesDirectory": []
+}

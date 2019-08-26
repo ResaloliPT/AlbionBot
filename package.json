@@ -1,0 +1,17 @@
+{
+  "name": "albion-bot",
+  "version": "1.0.0",
+  "description": "Albion Manager",
+  "main": "dist/index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "ResaloliPT",
+  "license": "MIT",
+  "dependencies": {
+    "discord.io": "https://github.com/woor/discord.io/tarball/gateway_v6",
+    "tslint": "^5.19.0",
+    "typescript": "^3.5.3",
+    "winston": "^3.2.1"
+  }
+}

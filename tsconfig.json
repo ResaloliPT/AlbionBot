@@ -1,0 +1,13 @@
+{
+  "compilerOptions": {
+    /* Basic Options */
+    "target": "es5",
+    "module": "commonjs",
+    // "lib": [],                             /* Specify library files to be included in the compilation. */
+    "declaration": true,
+    "sourceMap": true,
+    "outFile": "./dist/index.js",
+    "rootDir": "./src",
+    "removeComments": true
+  }
+}
