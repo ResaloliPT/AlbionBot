@@ -4,11 +4,13 @@
   "description": "Albion Manager",
   "main": "dist/index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "build": "node ./scripts/build.js && tsc",
+    "start": "node ./dist/index.js"
   },
   "author": "ResaloliPT",
   "license": "MIT",
   "dependencies": {
+    "@types/node": "^12.7.2",
     "discord.io": "https://github.com/woor/discord.io/tarball/gateway_v6",
     "tslint": "^5.19.0",
     "typescript": "^3.5.3",
