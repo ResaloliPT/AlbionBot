@@ -1,7 +1,7 @@
 {
   "compilerOptions": {
     /* Basic Options */
-    "target": "es5",
+    "target": "es6",
     "module": "commonjs",
     // "lib": [],                             /* Specify library files to be included in the compilation. */
     "declaration": true,
@@ -12,7 +12,12 @@
     "typeRoots": [
       "./node_modules/@types",
       "./types",
-      "./node_modules/discord.io/typings"
-    ]
+      "./node_modules/discord.js/typings"
+    ],
+    "baseUrl": ".",
+    "paths": {
+      "@root": ["."],
+      "@persistence": ["./src/persistence"]
+    }
   }
 }
