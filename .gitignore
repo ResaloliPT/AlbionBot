@@ -2,3 +2,4 @@
 /dist
 /auth.json
 /dbData.json
+/db.sqlite

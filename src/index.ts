@@ -10,7 +10,9 @@ logger.remove(logger.transports.Console);
 logger.add(new logger.transports.Console());
 logger.level = 'debug';
 
-var models = persistence.Sequelize.Instance.database;
+var models = new persistence.Sequelize({
+    logging: logger.debug
+}).database;
 
 const prepareBot: (bot: Discord.Client) => Promise<void> =  (bot) => {
     return new Promise((resolve, reject) => {
