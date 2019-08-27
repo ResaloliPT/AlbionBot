@@ -24,8 +24,8 @@ series([
     (done) => {
         console.log("Copying Auth & dbData.");
 
-        fs.copyFileSync(path.resolve("auth.json"), path.resolve("dist", "auth.json"));
-        fs.copyFileSync(path.resolve("dbData.json"), path.resolve("dist", "dbData.json"));
+        fs.copyFileSync(path.resolve("src", "auth.js"), path.resolve("dist", "auth.js"));
+        fs.copyFileSync(path.resolve("src", "dbData.js"), path.resolve("dist", "dbData.js"));
         fs.copyFileSync(path.resolve("src", "config.js"), path.resolve("dist", "config.js"));
 
         done();

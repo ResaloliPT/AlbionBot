@@ -1,7 +1,9 @@
 import fs = require('fs');
 import path = require('path');
 import SequelizeModule = require('sequelize');
-const dbData = require('../dbData.json');
+import { Model } from 'sequelize-typescript';
+import dbData = require('../dbData.js');
+import IModel from './IModel';
 
 let sequelize: SequelizeModule.Sequelize;
 export class Sequelize {
@@ -11,7 +13,7 @@ export class Sequelize {
   public database: SequelizeModule.Sequelize = sequelize;
 
   // Sequelize Module
-  public Sequelize = SequelizeModule;
+  public models: Model[];
 
   public constructor(options: SequelizeModule.Options) {
     if (Sequelize.Instance != null)
@@ -32,13 +34,15 @@ export class Sequelize {
         return file.endsWith('.model.js');
       })
       .forEach((file) => {
-        const model = sequelize.import(path.join(__dirname, file));
-        sequelize[model.name] = model;
+        const model = require(path.resolve(__dirname, file)).default;
+        sequelize[model.name] = model.init(sequelize, SequelizeModule);
       });
 
-    Object.keys(sequelize).forEach((modelName) => {
-      if ('associate' in sequelize[modelName]) sequelize[modelName].associate(sequelize);
-    });
+    // Run `.associate` if it exists,
+    // ie create relationships in the ORM
+    Object.values(sequelize)
+      .filter((model) => typeof model.associate === 'function')
+      .forEach((model) => model.associate(sequelize));
 
     this.database = sequelize;
   }

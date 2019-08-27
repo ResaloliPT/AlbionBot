@@ -1,5 +1,5 @@
 /node_modules
 /dist
-/auth.json
-/dbData.json
-/db.sqlite
+/README.md
+/src/dbData.js
+/src/auth.js
