@@ -1,49 +1,45 @@
-import fs = require("fs");
-import path = require("path");
-import SequelizeModule = require("sequelize");
-const dbData = require("../dbData.json")
+import fs = require('fs');
+import path = require('path');
+import SequelizeModule = require('sequelize');
+const dbData = require('../dbData.json');
 
 let sequelize: SequelizeModule.Sequelize;
 export class Sequelize {
-	public constructor(options: SequelizeModule.Options){
-		if(Sequelize.Instance != null){
-			throw new Error("Instance already Built, access instance property to get the current instance");
-		}
+  public static Instance: Sequelize = null;
 
-		sequelize = new SequelizeModule.Sequelize(dbData.database, dbData.username, dbData.password, {
-			...dbData.config,
-			...options
-		});
-		this.prepare();
+  // Models
+  public database: SequelizeModule.Sequelize = sequelize;
 
-		Sequelize.Instance = this;
-	}
+  // Sequelize Module
+  public Sequelize = SequelizeModule;
 
-	public static Instance:Sequelize = null;
+  public constructor(options: SequelizeModule.Options) {
+    if (Sequelize.Instance != null)
+      throw new Error('Instance already Built, access instance property to get the current instance');
 
-	//Models
-	public database: SequelizeModule.Sequelize = sequelize;
+    sequelize = new SequelizeModule.Sequelize(dbData.database, dbData.username, dbData.password, {
+      ...dbData.config,
+      ...options,
+    });
+    this.prepare();
 
-	//Sequelize Module
-	public Sequelize = SequelizeModule;
+    Sequelize.Instance = this;
+  }
 
-	prepare(): void {
-		fs
-		.readdirSync(__dirname)
-		.filter(function (file) {
-			return (file.indexOf("." ) !== 0 && (file.toLowerCase() !== 'index.js') && (file.endsWith('.js')))
-		})
-		.forEach(function(file) {
-			var model = sequelize.import(path.join(__dirname, file));
-			sequelize[model.name] = model;
-		});
+  private prepare(): void {
+    fs.readdirSync(__dirname)
+      .filter((file) => {
+        return file.endsWith('.model.js');
+      })
+      .forEach((file) => {
+        const model = sequelize.import(path.join(__dirname, file));
+        sequelize[model.name] = model;
+      });
 
-		Object.keys(sequelize).forEach(function(modelName) {
-			if ("associate" in sequelize[modelName]) {
-				sequelize[modelName].associate(sequelize);
-			}
-		});
+    Object.keys(sequelize).forEach((modelName) => {
+      if ('associate' in sequelize[modelName]) sequelize[modelName].associate(sequelize);
+    });
 
-		this.database = sequelize;
-	}
+    this.database = sequelize;
+  }
 }

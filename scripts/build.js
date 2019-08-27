@@ -26,6 +26,7 @@ series([
 
         fs.copyFileSync(path.resolve("auth.json"), path.resolve("dist", "auth.json"));
         fs.copyFileSync(path.resolve("dbData.json"), path.resolve("dist", "dbData.json"));
+        fs.copyFileSync(path.resolve("src", "config.js"), path.resolve("dist", "config.js"));
 
         done();
     }

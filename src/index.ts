@@ -10,54 +10,54 @@ logger.remove(logger.transports.Console);
 logger.add(new logger.transports.Console());
 logger.level = 'debug';
 
-var models = new persistence.Sequelize({
-    logging: logger.debug
+const models = new persistence.Sequelize({
+    logging: logger.debug,
 }).database;
 
 const prepareBot: (bot: Discord.Client) => Promise<void> =  (bot) => {
-    return new Promise((resolve, reject) => {
+    return new Promise(async (resolve, reject) => {
         logger.info('Connected');
         logger.info('Logged in as: ');
         logger.info(bot.user.username + ' - (' + bot.user.id + ')');
-        bot.user.setPresence({
-            status: "online",
+        await bot.user.setPresence({
             afk: false,
             game: {
-                name: "Use \'!ab help\' for commands!",
-                type: "WATCHING"
-            }
-        })
+                name: 'Use \'!ab help\' for commands!',
+                type: 'WATCHING',
+            },
+            status: 'online',
+        });
         resolve();
-    })
-}
+    });
+};
 
 const startBot: () => Promise<Discord.Client> =  () => {
-    return new Promise((resolve, reject) => {
+    return new Promise(async (resolve, reject) => {
         // Initialize Discord Bot
-        var bot = new Discord.Client();
+        const bot = new Discord.Client();
 
-        const commandHandler = new cmdHandler.CommandHandler(bot)
+        const commandHandler = new cmdHandler.CommandHandler(bot);
 
-        bot.on('message', message => {
-            if(bot.user.id != message.author.id){
-                commandHandler.handleCommand(message);
+        bot.on('message', async (message) => {
+            if (bot.user.id !== message.author.id) {
+                await commandHandler.handleCommand(message);
             }
         });
 
-        bot.on('ready', ()=>{
+        bot.on('ready', () => {
             resolve(bot);
         });
 
         bot.on('error', reject);
 
-        bot.login(auth.token);
-    })
-}
+        await bot.login(auth.token);
+    });
+};
 
 models
-.sync({ force: false }) //Set to true to create database
-.then(startBot) //Connect the bot
-.then(prepareBot) //Set bot status
-.catch(error => {
-    logger.error(error)
-})
+.sync({ force: false }) // Set to true to create database
+.then(startBot) // Connect the bot
+.then(prepareBot) // Set bot status
+.catch((error) => {
+    logger.error(error);
+});

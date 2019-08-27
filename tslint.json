@@ -12,7 +12,8 @@
         "no-implicit-dependencies": true,
         "no-invalid-template-strings": true,
         "no-invalid-this": true,
-        "no-misused-new": true
+        "no-misused-new": true,
+        "quotemark": [true, "single"]
     },
     "rulesDirectory": []
 }
