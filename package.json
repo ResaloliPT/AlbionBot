@@ -4,16 +4,27 @@
   "description": "Albion Manager",
   "main": "dist/index.js",
   "scripts": {
-    "build": "node ./scripts/build.js && tsc",
-    "start": "node ./dist/index.js"
+    "compile": "tsc",
+    "build": "node ./scripts/build.js",
+    "start": "node ./dist/index.js",
+    "watch": "tsc --watch"
   },
   "author": "ResaloliPT",
   "license": "MIT",
   "dependencies": {
     "@types/node": "^12.7.2",
-    "discord.io": "https://github.com/woor/discord.io/tarball/gateway_v6",
+    "@types/sequelize": "^4.28.4",
+    "@types/winston": "^2.4.4",
+    "async": "^3.1.0",
+    "discord.js": "^11.5.1",
+    "sequelize": "^5.16.0",
+    "sqlite": "^3.0.3",
     "tslint": "^5.19.0",
     "typescript": "^3.5.3",
     "winston": "^3.2.1"
+  },
+  "devDependencies": {
+    "del": "^5.1.0",
+    "gulp": "^4.0.2"
   }
 }
